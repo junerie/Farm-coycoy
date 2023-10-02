@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdKhN5Vc8OnvBF5M6-v8C8PhWY5l9isp4&callback=initMap" async defer></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdKhN5Vc8OnvBF5M6-v8C8PhWY5l9isp4&callback=initMap" ></script>
   <style>
   body {
     font: 400 15px/1.8 Lato, sans-serif;
@@ -116,6 +116,19 @@
   .nav-tabs li a {
     color: #ebe5e5;
   }
+
+  .navbar {
+    background-color: #f1f1f1;
+ }
+
+ .navbar a {
+    color: #333;
+ }
+
+ .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+ }
   #googleMap {
     width: 100%;
     height: 400px;
@@ -186,6 +199,10 @@
     width: 100%;
     height: 100%;
   }
+  .navbar a {
+      float: none;
+      display: block;
+    }
 }
   </style>
   
@@ -324,7 +341,7 @@
   </div>
 </div>
 
-<!-- Container (TOUR Section) -->
+<!-- Container (Order Section) -->
 <div id="order" class="bg-1">
   <div class="container">
     <h3 class="text-center">Order Now</h3>
@@ -459,6 +476,7 @@
 
 <!-- Image of location/map -->
 <div id="api" class="GooglemapApi" onload="initApi()">
+  <p>Farm Located</p>
   <iframe id="map" width="100%" height="400" frameborder="0" style="width:100%" allowfullscreen></iframe>
 </div>
 
@@ -476,7 +494,7 @@
     
     // Add smooth scrolling to all links in navbar + footer link
     $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-  
+      $(".navbar-collapse").collapse('hide');
       // Make sure this.hash has a value before overriding default behavior
       if (this.hash !== "") {
   
