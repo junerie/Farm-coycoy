@@ -35,21 +35,6 @@ $(document).ready(function(){
       });
     }
 
-    // database 
-    const { MongoClient } = require('mongodb');
-
-    const uri = 'mongodb+srv://vicoyjunerie33:@l03e1t3Vlog23@cluster0.rxi3t9g.mongodb.net/';
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    const db = client.db('my_database');
-const collection = db.collection('order');
 
 
-
-collection.insertOne(data, (err, result) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log('Data inserted successfully');
-  }
-});
 
