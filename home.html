@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Poultry Farm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdKhN5Vc8OnvBF5M6-v8C8PhWY5l9isp4&callback=initMap" ></script>
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<style>
+  
+body {         
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #201e1e;
+}
+
+
+/* 2 */
+  h3, h4 {
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;      
+    font-size: 20px;
+    color: #111;
+  }
+  .container {
+    padding: 80px 120px;
+    
+  }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 100%;
+    height: 100%;
+    
+  }
+  .container#Product {
+    box-shadow: 0 4px 6px rgba(17, 16, 16, 0.1); 
+  }
+
+  .img-circle {
+   transition: transform .2s;
+
+  }
+
+  .img-circle:hover {
+  transform: scale(1.3);
+  }
+  .img-circle:hover::before {
+  content: "Click Me!";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #860202;
+  font-size: 18px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 5px;
+  
+  }
+  .carousel-inner img {
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+  }
+  .carousel-inner p{
+    color: #000;
+    text-shadow: 0 14px 28px rgba(235, 209, 209, 0.25), 0 10px 10px rgba(155, 137, 137, 0.22);
+    font-size: 17px;
+    background-color: rgba(248, 219, 219, 0.22);
+    border-radius: 15px;
+    letter-spacing: 2px;
+  }
+
+  .carousel-caption h3 {
+    color:#000!important;
+    text-shadow: 0 14px 28px rgba(235, 209, 209, 0.25), 0 10px 10px rgba(155, 137, 137, 0.22);
+    letter-spacing: 4px;
+    font-size: 30px;
+  }
+
+  .container#Product {
+    letter-spacing: 4px;
+    font-size:25px;
+    text-shadow: 0 14px 28px rgba(235, 209, 209, 0.25), 0 10px 10px rgba(155, 137, 137, 0.22);
+  }
+  .container#Product h3 {
+    font-size:30px;
+    text-shadow: 0 14px 28px rgba(235, 209, 209, 0.25), 0 10px 10px rgba(155, 137, 137, 0.22);
+  }
+
+
+
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+    }
+  }
+  .bg-1 {
+    background: #2d2d30;
+    color: #bdbdbd;
+    box-shadow: 0 4px 6px rgba(250, 250, 250, 0.8); 
+
+  }
+  .bg-1 h3 {color: #fff;}
+  .bg-1 p {font-style: italic;}
+  .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  .thumbnail p {
+    margin-top: 15px;
+    color: #555;
+  }
+
+  .thumbnail:hover img {
+    transform: scale(1.15);
+    transition: transform .2s;
+    border-radius: 10px;
+}
+
+  .btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #f1f1f1;
+    border-radius: 0;
+    transition: .2s;
+  }
+  .btn:hover, .btn:focus {
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #000;
+  }
+  .modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+  }
+  .modal-header, .modal-body {
+    padding: 40px 50px;
+  }
+  
+  #googleMap {
+    width: 100%;
+    height: 400px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }  
+  
+  footer {
+    background-color: #2d2d30;
+    color: #f5f5f5;
+    padding: 32px;
+  }
+  footer a {
+    color: #f5f5f5;
+  }
+  footer a:hover {
+    color: #777;
+    text-decoration: none;
+  }  
+  .form-control {
+    border-radius: 0;
+  }
+  textarea {
+    resize: none;
+  }
+  /* product chart  */
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  
+  }
+  
+  .chart-container{
+    width: 1100px;
+    height: 450px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  img{
+    width: 100%;
+    display: block;
+  }
+  
+  .card-left{
+    width: 600px;
+    overflow: hidden;
+  }
+  
+  .main-image{
+    display: flex;
+  transition: all 0.5s ease;
+  }
+  .img-select{
+    display: flex;
+    margin-top: 2px;
+  }
+  .img{
+    border:2px solid white;
+  }
+  .active{
+    border-color:black;
+  
+  }
+  
+  .card-right{
+    padding: 10px;
+  }
+  
+  .card-right h2{
+    font-weight: 400;
+  
+  }
+  
+  .star{
+    display: flex;
+    gap:20px;
+    cursor: pointer;
+  }
+  .star-group ion-icon{
+    color:rgba(0,0,0,0.3)
+  }
+  .star-group ion-icon:nth-child(1),
+  .star-group ion-icon:nth-child(2),
+  .star-group ion-icon:nth-child(3)
+  {
+  color:gold;
+  }
+  
+  .card-right h4{
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .card-right h4 span{
+    text-decoration: line-through;
+    color:rgba(0,0,0,0.2);
+    font-size:15px;
+    padding-left: 15px;
+  }
+  
+  .card-right p{
+    margin: 15px 0;
+    color:rgba(0,0,0,0.5);
+    padding:10px 0 ;
+  }
+  
+  .form{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label,
+  .form-group select
+  {
+  display: block;
+  }
+  
+  .form-group select{
+    width: 150px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .input-group{
+  display:flex;
+  width: 220px;
+  height: 30px;
+  }
+  .input-group input{
+    width: 50px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding-left:20px ;
+    font-size: 18px;
+  }
+  .input-group button{
+    width: 30px;
+    outline: none;
+    border: none;
+    background-color: #111;
+    color:white;
+  }
+  
+  .btn-cart{
+    width: 150px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color:white;
+    background-color: #FF8401;
+    font-size: 16px;
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color:#4b4b4b;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background-color: #ff4757;
+}
+
+.nav{
+  max-width: 1200px;
+  margin: auto;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo{
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  color:#ffffff;
+}
+
+.box{
+  color:white;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.cart-count{
+  position: absolute;
+  background-color: #2f3542;
+  top: -5px;
+  right: 0;
+  padding: 3px;
+  height: 20px;
+  width: 20px;
+  line-height:20px ;
+  border-radius: 50%;
+  z-index: 99;
+}
+
+#cart-icon{
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+img{
+  width: 100%;
+}
+
+.container{
+  max-width: 1200px;
+  padding: 4rem;
+  margin: auto;
+  width: 100%;
+}
+
+h2.title{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color:#ffffff;
+}
+
+.shop-content{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,auto));
+  gap:1.5rem;
+  justify-content: center;
+  align-content: center;
+}
+
+.food-box{
+  position: relative;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 1px 4px rgba(40, 37, 37, 0.1);
+  border-radius: 3px;
+}
+
+.pic{
+  overflow: hidden;
+}
+
+.pic:hover img{
+transform: scale(1.5);
+}
+
+.food-img{
+  transition: 0.4s;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.food-title{
+  font-size: 1rem;
+  font-weight: 600;
+  color:#ff6348;
+}
+
+.food-price{
+  font-weight:500 ;
+}
+
+.add-cart{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #2ed573;
+  color:white;
+  padding: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.add-cart:hover{
+  background-color:rgba(255, 0, 0, 0.786);
+}
+  
+
+.cart{
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 400px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(40, 37, 37, 0.1);
+  z-index: 100;
+}
+
+.cart-active{
+  right:0;
+  transition: 0.5s;
+}
+
+.cart-title{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  padding-bottom:20px ;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.cart-box{
+  display: grid;
+  grid-template-columns: 32% 50% 18%;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 10px;
+}
+
+.cart-img{
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border:2px solid  rgba(0,0,0,0.1);
+  padding: 5px;
+}
+.detail-box{
+  display: grid;
+  row-gap: 0.5rem;  
+}
+
+.price-box{
+  display: flex;
+    justify-content: space-between; 
+}
+
+.cart-food-title{
+   font-size: 1rem;
+   text-transform: uppercase;
+   color:#ff6348;
+   font-weight: 500;
+}
+
+.cart-price{
+  font-weight: 500;
+}
+
+.cart-quantity{
+  border:1px solid rgba(0,0,0,0.1);
+  outline:none ;
+  width: 2.4rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.cart-remove{
+  font-size: 24px;
+  color:red;
+  cursor: pointer;
+}
+
+.total{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.total-title{
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.total-price{
+  margin-left: 0.5rem;
+}
+
+.btn-buy{
+  padding: 12px 20px;
+  background-color:#2f3542;
+  color:#fff;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#cart-close{
+  position: absolute;
+  top: 1rem;
+  right: 0.8rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+ /* Media Query: Tablet or Smaller */
+@media screen and (max-width: 1000px) {
+  .container {
+    padding: 50px 20px;
+  }
+  .person {
+    width: 100%;
+    height: 100%;
+  }
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  .navbar a {
+      float: none;
+      display: block;
+  }
+    .img-circle:hover::before {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+</style>
+<body>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="img/RIRHENROO.jpg" alt="Rhode Island Red" width="1200" height="700">
+        <div class="carousel-caption">
+          <h3>Rhode Island Red</h3>
+          <p>The Rhode Island Red is an American breed of domestic chicken. It is the state bird of Rhode Island. It was developed there and in Massachusetts in the late nineteenth century, by cross-breeding birds of Oriental origin such as the Malay with brown Leghorn birds from Italy.</p>
+        </div>      
+      </div>
+
+      <div class="item">
+        <img src="img/BAHENROO.jpg" alt="Black Australorp" width="1200" height="700">
+        <div class="carousel-caption">
+          <h3>Black Australorp</h3>
+          <p>A Heritage Chicken must have the genetic ability to live a long, vigorous life and thrive in the rigors of pasture-based, outdoor production systems. Breeding hens should be productive for 5-7 years and roosters for 3-5 years.</p>
+        </div>      
+      </div>
+    
+      <div class="item">
+        <img src="img/BPR1.jpg" alt="Bared Playmount Rock" width="1200" height="700">
+        <div class="carousel-caption">
+          <h3>Bared Playmount Rock</h3>
+          <p>These large and hardy birds are ideal on small farms because they are gentle yet highly productive. At the same time, they are a great meat and egg source, especially for farms in moderate to cold climates.</p>
+        </div>      
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- iframe -->
+<div class="prod">
+  <iframe name="Product" frameborder="0"></iframe>
+</div>
+
+<!-- Container (The Product Section) -->
+<div id="Product" class="container text-center">
+  <h3 class="animate__animated animate__bounce">Heritage and Native Chickens</h3>
+  <div class="slider">
+    <p><em>Chicken is Life!</em></p>
+    <p>Experience the taste of tradition with Chicken Heritage and native - Where generations of natural farming techniques preserve the authentic flavor and quality of our heritage and native chickens breeds</p>
+    <div class="slide" ><img src="https://dl.dropboxusercontent.com/u/50037593/ElasticSlider/images/1.jpg" /><p>rutrum tellus a tempus :)</p></div>
+    <div class="slide"><img src="https://dl.dropboxusercontent.com/u/50037593/ElasticSlider/images/3.jpg" /><p>litora torquent per conubia</p></div>
+    <div class="slide"><img src="https://dl.dropboxusercontent.com/u/50037593/ElasticSlider/images/2.jpg" /><p>sed consectetur faucibus</p></div>
+    <div class="slide" ><img src="https://dl.dropboxusercontent.com/u/50037593/ElasticSlider/images/4.jpg" /><p>eleifend tempus justo</p></div>
+</div>
+    <!-- Container (Order Section)  -->
+<div id="order" class="bg-1">
+    <div class="container">
+      <h3 class="text-center">Order Now</h3>
+      <p class="text-center">bluh bluh bluh<br> Bluh bluh</p>
+      <ul class="list-group">
+        <li class="list-group-item">September <span class="label label-danger">Sold Out!</span></li>
+        <li class="list-group-item">October <span class="label label-danger">Sold Out!</span></li> 
+        <li class="list-group-item">November <span class="badge">3</span></li> 
+      </ul>
+      
+      <div class="row text-center">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="img/dayold.jpg" alt="Daryl" width="400" height="300">
+            <p><strong>Available</strong></p>
+            <p>Day Old RIR, BA, PBR</p>
+            <button class="btn" data-toggle="modal" data-target="#myModal">Purchase Now</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="img/3wee.jpg" alt="Dandy" width="400" height="300">
+            <p><strong>Available</strong></p>
+            <p>3 weeks old RIR</p>
+            <button class="btn" data-toggle="modal" data-target="#chart">Purchase Now</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="img/2mons.jpg" alt="Tukuran" width="400" height="300">
+            <p><strong>Available</strong></p>
+            <p>2 mons old only</p>
+            <button class="btn" data-toggle="modal" data-target="#chart">Purchase Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+     <!--Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4><span class="glyphicon glyphicon-lock"></span> Order Now</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="usrname"><span class="glyphicon glyphicon-search"></span> Type Chicken Order</label>
+                <select class="glyphicon form-control" id="sel1">
+                  <option>Rhode Island Red</option>
+                  <option>Bared Playmount Rock</option>
+                  <option>Black Australorp</option>
+                  <option>Mix Native Chickens</option>
+                </select>
+                <br>
+                <select class="form-control" id="sel1">
+                  <option>Day Old</option>
+                  <option>Week Old</option>
+                  <option>1 Months Old</option>
+                  <option>2 Months Old</option>
+                  <option>3 Months Old</option>
+                  <option>4 Months Old</option>
+                  <option>Ready to Laying:RTL</option>
+                </select>
+              </div>
+              <div class="form-group"> 
+                <label for="psw"><span class="glyphicon glyphicon-quantity"></span>Quantity Order</label>
+                <input type="number" class="form-control" id="psw" placeholder="How many?">
+              </div>
+              <div class="form-group">
+                  <label for="name"><span class="glyphicon glyphicon-address"></span>Complete Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Complete Name">
+                </div>
+                <div class="form-group">
+                  <label for="address"><span class="glyphicon glyphicon-address"></span>Complete Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="Andress">
+                </div>
+                <div class="form-group">
+                  <label for="Contact Number"><span class="glyphicon glyphicon-Number"></span>Contact Number</label>
+                  <input type="text" class="form-control" id="address" placeholder="Number">
+                </div>
+                <button type="submit" class="btn btn-block">Reserve Now
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+              <span class="glyphicon glyphicon-remove"></span> Cancel
+            </button>
+            <p>Need <a href="#">help?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container (Contact Section) -->
+<div id="contact" class="container">
+    <h3 class="text-center">Contact</h3>
+    <p class="text-center"><em>We love our Customer</em></p>
+  
+    <div class="row">
+      <div class="col-md-4">
+        <p>Contact Person</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span>TM Number</p>
+        <p><span class="glyphicon glyphicon-phone"></span>Phone: +63 9161169766</p>
+        <p><span class="glyphicon glyphicon-envelope"></span>Email: vicoyjunerie33mail@mail.com</p>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          </div>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+          </div>
+        </div>
+        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+        <br>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <button class="btn pull-right" type="submit">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h3 class="text-center">Look for farm Incharge</h3>  
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Junerie</a></li>
+      <li><a data-toggle="tab" href="#menu1">Janine</a></li>
+      <li><a data-toggle="tab" href="#menu2">Elvin</a></li>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <h2>Junerie Vicoy</h2>
+        <p>Owner</p>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <h2>Janine Lusayan</h2>
+        <p>Accounting</p>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h2>Elvin Lusayan</h2>
+        <p>Farm Manager</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Image of location/map -->
+  <div id="api" class="GooglemapApi" onload="initApi()">
+    <p><center>It will Display the google API map <i class="fa fa-header" aria-hidden="true"></i> but suddenly nothing to show now due to unpaid google API</center></p>
+    <iframe id="map" width="100%" height="400" frameborder="0" style="width:100%" allowfullscreen></iframe>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="text-center">
+    <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </a><br><br>
+    <p>© Copyright 2023 <a href="https://junerie.github.io/Farm-coycoy/" data-toggle="tooltip" title="Visit github">Junerie Natingga Vicoy</a></p> 
+  </footer>
+</body>
+<script>
+
+
+
+
+</script>
+</html>
